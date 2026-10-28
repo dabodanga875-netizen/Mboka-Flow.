@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b6b53">
+  <meta name="description" content="Mboka Flow — carte, itinéraires et signalements routiers à Kinshasa.">
+  <title>Mboka Flow — Navigation & routes</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">MF</div>
+    <div class="brand-copy">
+      <h1>Mboka Flow</h1>
+      <p>Des routes plus claires, des déplacements plus fluides.</p>
+    </div>
+    <span class="pilot-badge">BÊTA</span>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="intro">
+        <p class="eyebrow">PILOTE · KINSHASA</p>
+        <h2>Où voulez-vous aller ?</h2>
+        <p class="muted">Recherchez un lieu, affichez un itinéraire et signalez un problème routier.</p>
+      </div>
+
+      <label for="destination">Destination</label>
+      <input id="destination" type="text" placeholder="Ex. Gombe, Matonge, Aéroport de Ndjili" autocomplete="off">
+      <div class="button-row">
+        <button id="searchBtn" class="primary">Rechercher un lieu</button>
+        <button id="locateBtn" class="secondary">Ma position</button>
+      </div>
+      <div id="searchResults" class="results" aria-live="polite"></div>
+
+      <hr>
+      <h3>Calculer un itinéraire</h3>
+      <p class="small muted">Utilisez votre position actuelle ou choisissez un départ sur la carte, puis sélectionnez une destination.</p>
+      <div class="button-row">
+        <button id="routeBtn" class="primary" disabled>Calculer l’itinéraire</button>
+        <button id="clearBtn" class="secondary">Effacer</button>
+      </div>
+      <div id="routeInfo" class="route-info" aria-live="polite">Aucun itinéraire calculé.</div>
+
+      <hr>
+      <h3>Signaler un problème routier</h3>
+      <p class="small muted">Les signalements de cette démo ne sont pas envoyés à un serveur et ne sont pas visibles par les autres utilisateurs.</p>
+      <label for="issueType">Type de problème</label>
+      <select id="issueType">
+        <option value="Route bloquée">Route bloquée</option>
+        <option value="Inondation">Inondation</option>
+        <option value="Nid-de-poule / route endommagée">Nid-de-poule / route endommagée</option>
+        <option value="Travaux">Travaux</option>
+        <option value="Autre obstacle">Autre obstacle</option>
+      </select>
+      <label for="issueNote">Détail (facultatif)</label>
+      <textarea id="issueNote" rows="2" placeholder="Décrivez ce que vous avez constaté…"></textarea>
+      <button id="reportBtn" class="warning">Signaler ici sur la carte</button>
+      <div id="reportStatus" class="small" aria-live="polite"></div>
+
+      <div class="legend">
+        <span><i class="dot green"></i> Signalement de démonstration</span>
+        <span><i class="dot blue"></i> Itinéraire calculé</span>
+      </div>
+    </section>
+
+    <section class="map-panel">
+      <div class="map-toolbar">
+        <span><strong>Carte de Kinshasa</strong></span>
+        <span id="mapStatus" class="small">Cliquez sur la carte pour choisir un point.</span>
+      </div>
+      <div id="map" role="application" aria-label="Carte interactive de Kinshasa"></div>
+      <div class="disclaimer">
+        <strong>À savoir :</strong> ce prototype utilise des données cartographiques et un service public de calcul d’itinéraires. Une route affichée n’est pas automatiquement confirmée praticable. Les alertes en temps réel, la vérification terrain et le partage des signalements ne sont pas encore activés.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Mboka Flow</span>
+    <span>Prototype initial · Vérifiez toujours les conditions réelles avant de voyager.</span>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>

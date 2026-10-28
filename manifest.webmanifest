@@ -1,0 +1,18 @@
+{
+  "name": "Mboka Flow — Navigation & routes",
+  "short_name": "Mboka Flow",
+  "description": "Prototype de carte et d'itinéraires pour Kinshasa.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f7f5",
+  "theme_color": "#0b6b53",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
